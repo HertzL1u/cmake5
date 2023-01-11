@@ -32,10 +32,8 @@ jobs :
           make 
           ls
         shell: pwsh 
-      - name: save
+      - name: print bin
         run: |
           cd ${{github.workspace}}\build\bin
-          git status
-          git add libhello.dll
-          git commit -m "Add libhello.dll"
+          ls
         shell: pwsh  

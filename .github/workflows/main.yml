@@ -23,17 +23,17 @@ jobs :
         run: |
           mkdir build
           cd build
-          cmake .. -G "Unix Makefiles"
+          cmake .. -G "Visual Studio 16 2019"
           ls
         shell: pwsh
       - name: make
         run: |
           cd ${{github.workspace}}\build 
-          make 
+          msbuild HELLO.sln 
           ls
         shell: pwsh 
       - name: print bin
         run: |
-          cd ${{github.workspace}}\build\bin
+          cd ${{github.workspace}}\build\bin\DeBug
           ls
         shell: pwsh  

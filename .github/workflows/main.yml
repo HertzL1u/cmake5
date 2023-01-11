@@ -1,0 +1,34 @@
+name: Cmake-dll
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+jobs :
+  build:
+    name: "cmaketest"
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Display the path by pwsh
+        run: echo ${env:PATH}
+        shell: pwsh
+      - name: Display github.workspace by pwsh
+        run: |
+          echo "github.workspace is ${{github.workspace}}."
+          ls ${{github.workspace}}
+        shell: pwsh
+      - name: CMake Build
+        run: |
+          mkdir build
+          cd build
+          cmake .. -G "Unix Makefiles"
+          ls
+        shell: pwsh
+      - name: make
+        run: |
+          cd ${{github.workspace}}\build 
+          make 
+          ls
+        shell: pwsh 

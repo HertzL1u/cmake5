@@ -23,13 +23,13 @@ jobs :
         run: |
           mkdir build
           cd build
-          cmake .. -G "Visual Studio 2022"
+          cmake .. -G "Visual Studio 16 2019"
           ls
         shell: pwsh
       - name: make
         run: |
           cd ${{github.workspace}}\build 
-          msbuild HELLO.sln 
+          msbuild HELLO.sln /m
           ls
         shell: pwsh 
       - name: print bin

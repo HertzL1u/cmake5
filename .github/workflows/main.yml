@@ -23,17 +23,17 @@ jobs :
         run: |
           mkdir build
           cd build
-          cmake .. -G "MinGW Makefiles"
+          cmake .. -G "Visual Studio 17 2022"
           ls
         shell: pwsh
       - name: make
         run: |
           cd ${{github.workspace}}\build 
-          make
+          cmake . --build
           ls
         shell: pwsh 
       - name: print bin
         run: |
-          cd ${{github.workspace}}\build\bin
+          cd ${{github.workspace}}\build\bin\Debug
           ls
         shell: pwsh  

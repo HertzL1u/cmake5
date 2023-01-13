@@ -8,7 +8,7 @@ on:
 jobs :
   build:
     name: "cmaketest"
-    runs-on: windows-2017
+    runs-on: windows-2019
     steps:
       - uses: actions/checkout@v1
       - name: Display the path by pwsh

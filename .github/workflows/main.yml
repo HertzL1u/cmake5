@@ -23,17 +23,17 @@ jobs :
         run: |
           mkdir build
           cd build
-          cmake .. -G "Visual Studio 15 2017 Win64"
+          cmake .. -G "Unix Makefiles" -D CMAKE_GNUtoMS:BOOL=ON
           ls
         shell: pwsh
       - name: make
         run: |
           cd ${{github.workspace}}\build 
-          msbuild HELLO.sln /m
+          make
           ls
         shell: pwsh 
       - name: print bin
         run: |
-          cd ${{github.workspace}}\build\bin\DeBug
+          cd ${{github.workspace}}\build\bin
           ls
         shell: pwsh  

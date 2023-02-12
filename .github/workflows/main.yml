@@ -10,9 +10,9 @@ jobs :
     name: Windows MSVC 2017 
     runs-on: windows-latest
     strategy:
-      max-parallel: 2
+      max-parallel: 1
       matrix:
-        generators: [Visual Studio 17 2022, Visual Studio 15 2017 Win64]
+        generators: [ Visual Studio 15 2017 Win64]
     steps:
       - uses: actions/checkout@v1
       - name: Display the path by pwsh

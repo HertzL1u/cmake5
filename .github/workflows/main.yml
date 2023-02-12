@@ -7,34 +7,12 @@ on:
   workflow_dispatch:
 jobs :
   build:
-    name: ${{} matrix.config.name }
-    runs-on: ${{ matrix.config.os }}
+    name: Windows MSVC 2017 
+    runs-on: windows-latest
     strategy:
-      fail-fast: false
+      max-parallel: 2
       matrix:
-        config:
-        - {
-            name: "Windows VS 2017",
-            os: windows-latest,
-            artifact: "windows_msvc.7z",
-            build_type: "Release",
-            cc: "cl",
-            cxx: "cl",
-            environment_script: "C:/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise/VC/Auxiliary/Build/vcvars64.bat",
-            archiver: "7z a",
-            generators: "Visual Studio 15 2017"
-          }
-        - {
-            name:  "Windows VS 2022",
-            os: windows-latest,
-            artifact: "windows_msvc.7z",
-            build_type: "Release",
-            cc: "cl",
-            cxx: "cl",
-            environment_script: "C:/Program Files (x86)/Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/Build/vcvars64.bat",
-            archiver: "7z a",
-            generators: "Visual Studio 17 2022"
-          }
+        generators: [Visual Studio 17 2022, Visual Studio 15 2017 Win64]
     steps:
       - uses: actions/checkout@v1
       - name: Display the path by pwsh
@@ -45,23 +23,17 @@ jobs :
           echo "github.workspace is ${{github.workspace}}."
           ls ${{github.workspace}}
         shell: pwsh
-      - name: Install dependencies on windows
-        if: startsWith(matrix.config.os, 'windows')
-        run: |
-          cmake --version
       - name: CMake Build
         run: |
           mkdir build
           cd build
-          cmake .. -DCMAKE_BUILD_TYPE=${{ matrix.config.build_type }} \
-                   -G "${{ matrix.config.generators }}" \
-                   -DCMAKE_INSTALL_PREFIX:PATH=instdir
+          cmake .. -G "Visual Studio 15 2017 Win64"
           ls
         shell: pwsh
       - name: make
         run: |
           cd ${{github.workspace}}\build 
-          cmake --build . --config ${{ matrix.config.build_type }}
+          cmake . --build
           ls
         shell: pwsh 
       - name: print bin

@@ -19,16 +19,11 @@ jobs :
           echo "github.workspace is ${{github.workspace}}."
           ls ${{github.workspace}}
         shell: pwsh
-      - name: Check Visual Studio version
-        run: |
-          cd C:\Program Files (x86)\Microsoft Visual Studio
-          ls
-        shell: pwsh
       - name: CMake Build
         run: |
           mkdir build
           cd build
-          cmake .. -G "Visual Studio 16 2019"
+          cmake .. -G "Visual Studio 15 2019"
           ls
         shell: pwsh
       - name: make

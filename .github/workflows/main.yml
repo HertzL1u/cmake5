@@ -7,8 +7,8 @@ on:
   workflow_dispatch:
 jobs :
   build:
-    name: Windows MSVC 2017 
-    runs-on: windows-2017
+    name: Windows MSVC 2022
+    runs-on: windows-2019
     steps:
       - uses: actions/checkout@v1
       - name: Display the path by pwsh
@@ -23,7 +23,7 @@ jobs :
         run: |
           mkdir build
           cd build
-          cmake .. -G "Visual Studio 15 2017 Win64"
+          cmake .. -G "Visual Studio 17 2022"
           ls
         shell: pwsh
       - name: make

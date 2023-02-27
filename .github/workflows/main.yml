@@ -28,7 +28,12 @@ jobs :
         shell: pwsh
       - name: make
         run: |
-          cd ${{github.workspace}}
-          cmake --build ./build --target install
+          cd ${{github.workspace}}\build
+          cmake --build .
           ls
-        shell: pwsh 
+        shell: pwsh
+      - name: print bin
+        run: |
+          cd ${{github.workspace}}\build\bin\Debug
+          ls
+        shell: pwsh

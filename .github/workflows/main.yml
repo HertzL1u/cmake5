@@ -7,8 +7,12 @@ on:
   workflow_dispatch:
 jobs :
   build:
-    name: Windows MSVC 2022
-    runs-on: windows-latest
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    strategy: 
+      matrix:
+        name: [MSVC MINGW]
+        os: [windows-latest]
     steps:
       - uses: actions/checkout@v1
       - name: Display the path by pwsh
@@ -19,24 +23,23 @@ jobs :
           echo "github.workspace is ${{github.workspace}}."
           ls ${{github.workspace}}
         shell: pwsh
-      - name: CMake Build
+      - name: MINGW
+        if: startsWith(matrix.name, 'MINGW')
         run: |
           mkdir build
-          mkdir libs
+          cd build
+          cmake .. -G "MinGW Makefiles"
+          make
+          cd ${{github.workspace}}\build\bin
+          ls
+        shell: pwsh
+      - name: MSVC
+        if: startsWith(matrix.name, 'MSVC')
+        run: |
+          mkdir build
           cd build
           cmake .. -G "Visual Studio 17 2022"
-          ls
-        shell: pwsh
-      - name: make
-        run: |
-          cd ${{github.workspace}}\build
           cmake --build .
-          ls
-        shell: pwsh
-      - name: print bin
-        run: |
           cd ${{github.workspace}}\build\bin\Debug
-          cp *.dll .\libs
           ls
-          
         shell: pwsh

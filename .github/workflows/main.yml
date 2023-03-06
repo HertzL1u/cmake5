@@ -11,8 +11,8 @@ jobs :
     runs-on: ${{ matrix.os }}
     strategy: 
       matrix:
-        name: [MINGW MSVC]
-        os: [windows-latest windows-latest]
+        name: [MINGW, MSVC]
+        os: [windows-latest]
     steps:
       - uses: actions/checkout@v1
       - name: Display the path by pwsh

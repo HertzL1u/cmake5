@@ -12,7 +12,7 @@ jobs :
     strategy: 
       matrix:
         name: [MSVC MINGW]
-        os: [windows-latest]
+        os: [windows-latest windows-latest]
     steps:
       - uses: actions/checkout@v1
       - name: Display the path by pwsh

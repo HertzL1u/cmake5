@@ -20,13 +20,11 @@ jobs :
       - name: MINGW
         if: startsWith(matrix.config.name, 'MINGW')
         run: |
-          echo ${env:PATH}
-          echo "github.workspace is ${{github.workspace}}."
           mkdir build
           cd build
           cmake .. -G "MinGW Makefiles"
           make
-          cd ${{github.workspace}}\build\bin
+          cd .\build\bin
           ls
         shell: pwsh
       - name: MSVC

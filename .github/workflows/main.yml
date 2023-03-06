@@ -24,7 +24,7 @@ jobs :
           cd build
           cmake .. -G "MinGW Makefiles"
           make
-          cd .\build\bin
+          cd bin
           ls
         shell: pwsh
       - name: MSVC

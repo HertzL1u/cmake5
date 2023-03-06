@@ -11,21 +11,15 @@ jobs :
     runs-on: ${{ matrix.os }}
     strategy: 
       matrix:
-        name: [MINGW, MSVC]
-        os: [windows-latest]
+        name: [MINGW, MSVC, LINUX]
+        os: [windows-latest, ubuntu-latset]
     steps:
       - uses: actions/checkout@v1
-      - name: Display the path by pwsh
-        run: echo ${env:PATH}
-        shell: pwsh
-      - name: Display github.workspace by pwsh
-        run: |
-          echo "github.workspace is ${{github.workspace}}."
-          ls ${{github.workspace}}
-        shell: pwsh
       - name: MINGW
         if: startsWith(matrix.name, 'MINGW')
         run: |
+          echo ${env:PATH}
+          echo "github.workspace is ${{github.workspace}}."
           mkdir build
           cd build
           cmake .. -G "MinGW Makefiles"
@@ -36,6 +30,8 @@ jobs :
       - name: MSVC
         if: startsWith(matrix.name, 'MSVC')
         run: |
+          echo ${env:PATH}
+          echo "github.workspace is ${{github.workspace}}."
           mkdir build
           cd build
           cmake .. -G "Visual Studio 17 2022"
@@ -43,3 +39,10 @@ jobs :
           cd ${{github.workspace}}\build\bin\Debug
           ls
         shell: pwsh
+      - name: LINUX
+        if: startsWith(matrix.name, 'LINUX')
+        run: |
+          cmake -S . -B ./build && cd ./build && make
+          cd ./build
+          ls
+      

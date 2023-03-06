@@ -44,7 +44,9 @@ jobs :
       - name: LINUX
         if: startsWith(matrix.config.name, 'LINUX')
         run: |
-          cmake -S . -B ./build && cd ./build && make
-          cd ./build
+          mkdir build
+          cd build
+          cmake ..
+          make
           ls
       

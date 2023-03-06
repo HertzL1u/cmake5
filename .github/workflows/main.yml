@@ -22,6 +22,7 @@ jobs :
       - name: CMake Build
         run: |
           mkdir build
+          mkdir libs
           cd build
           cmake .. -G "Visual Studio 17 2022"
           ls
@@ -35,5 +36,7 @@ jobs :
       - name: print bin
         run: |
           cd ${{github.workspace}}\build\bin\Debug
+          cp *.dll .\libs
           ls
+          
         shell: pwsh

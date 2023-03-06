@@ -7,16 +7,18 @@ on:
   workflow_dispatch:
 jobs :
   build:
-    name: ${{ matrix.name }}
-    runs-on: ${{ matrix.os }}
+    name: ${{ matrix.config.name }}
+    runs-on: ${{ matrix.config.os }}
     strategy: 
       matrix:
-        name: [MINGW, MSVC, LINUX]
-        os: [windows-latest, ubuntu-latset]
+        config:
+        - {name: "MINGW", os: "windows-latest"}
+        - {name: "MSVC", os: "windows-latest"}
+        - {name: "LINUX", os: "ubuntu-latest"}
     steps:
       - uses: actions/checkout@v1
       - name: MINGW
-        if: startsWith(matrix.name, 'MINGW')
+        if: startsWith(matrix.config.name, 'MINGW')
         run: |
           echo ${env:PATH}
           echo "github.workspace is ${{github.workspace}}."
@@ -28,7 +30,7 @@ jobs :
           ls
         shell: pwsh
       - name: MSVC
-        if: startsWith(matrix.name, 'MSVC')
+        if: startsWith(matrix.config.name, 'MSVC')
         run: |
           echo ${env:PATH}
           echo "github.workspace is ${{github.workspace}}."
@@ -40,7 +42,7 @@ jobs :
           ls
         shell: pwsh
       - name: LINUX
-        if: startsWith(matrix.name, 'LINUX')
+        if: startsWith(matrix.config.name, 'LINUX')
         run: |
           cmake -S . -B ./build && cd ./build && make
           cd ./build

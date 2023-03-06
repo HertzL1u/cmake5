@@ -11,7 +11,7 @@ jobs :
     runs-on: ${{ matrix.os }}
     strategy: 
       matrix:
-        name: [MSVC MINGW]
+        name: [MINGW MSVC]
         os: [windows-latest windows-latest]
     steps:
       - uses: actions/checkout@v1

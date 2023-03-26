@@ -27,14 +27,12 @@ jobs :
         if: startsWith(matrix.config.name, 'MINGW')
         run: |
           ${{github.action_path}}
-          cd bin
           ls
         shell: pwsh
       - name: MSVC
         if: startsWith(matrix.config.name, 'MSVC')
         run: |
           ${{github.action_path}}
-          cd .\build\bin\Debug
           ls
         shell: pwsh
       - name: LINUX

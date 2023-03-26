@@ -21,6 +21,7 @@ jobs :
         run: |
           mkdir build
           cd build
+          echo "${{matrix.generator}}"
           cmake .. ${{matrix.command}} ${{matrix.generator}}
           ${{matrix.build}}
           ls

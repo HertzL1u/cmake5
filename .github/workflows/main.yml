@@ -24,8 +24,6 @@ jobs :
           cmake .. ${{matrix.command}} "${{matrix.generator}}"
           make
           ls
-          cd build 
-          ls
       - name: MINGW
         if: startsWith(matrix.config.name, 'MINGW')
         run: |

@@ -21,14 +21,17 @@ jobs :
         run: |
           mkdir build
           cd build
-          echo "${{matrix.generator}}"
-          cmake .. ${{matrix.command}} ${{matrix.generator}}
+          cmake .. ${{matrix.command}} "${{matrix.generator}}"
           ${{matrix.build}}
           ls
       - name: MINGW
         if: startsWith(matrix.config.name, 'MINGW')
         run: |
-          ${{github.action_path}}
+          mkdir build
+          cd build
+          cmake .. -G "MinGW Makefiles"
+          make
+          ls
         shell: pwsh
       - name: MSVC
         if: startsWith(matrix.config.name, 'MSVC')

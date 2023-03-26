@@ -21,8 +21,8 @@ jobs :
         run: |
           mkdir build
           cd build
-          cmake .. matrix.command "matrix.generator"
-          matrix.build
+          cmake .. ${matrix.command} "${matrix.generator}"
+          ${matrix.build}
           ls
       - name: MINGW
         if: startsWith(matrix.config.name, 'MINGW')

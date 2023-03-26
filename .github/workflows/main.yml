@@ -12,39 +12,33 @@ jobs :
     strategy: 
       matrix:
         config:
-        - {name: "MINGW", os: "windows-latest"}
-        - {name: "MSVC", os: "windows-latest"}
-        - {name: "LINUX", os: "ubuntu-latest"}
+        - {name: "MINGW", os: "windows-latest", command: "-G", generator: "MinGW Makefiles", build: "make"}
+        - {name: "MSVC", os: "windows-latest", command: "-G", generator: "Visual Studio 17 2022", build: "cmake --build ."}
+        - {name: "LINUX", os: "ubuntu-latest", command: "", generator: "", build: "make"}
     steps:
       - uses: actions/checkout@v1
-      - name: MINGW
-        if: startsWith(matrix.config.name, 'MINGW')
+      - name: CMAKE & PRINT
         run: |
           mkdir build
           cd build
-          cmake .. -G "MinGW Makefiles"
-          make
+          cmake .. ${{matrix.command}} "${{matrix.generator}}"
+          ${{matrix.build}}
+      - name: MINGW
+        if: startsWith(matrix.config.name, 'MINGW')
+        run: |
+          ${{github.action_path}}
           cd bin
           ls
         shell: pwsh
       - name: MSVC
         if: startsWith(matrix.config.name, 'MSVC')
         run: |
-          echo ${env:PATH}
-          echo "github.workspace is ${{github.workspace}}."
-          mkdir build
-          cd build
-          cmake .. -G "Visual Studio 17 2022"
-          cmake --build .
-          cd ${{github.workspace}}\build\bin\Debug
+          ${{github.action_path}}
+          cd .\build\bin\Debug
           ls
         shell: pwsh
       - name: LINUX
         if: startsWith(matrix.config.name, 'LINUX')
         run: |
-          mkdir build
-          cd build
-          cmake ..
-          make
+          ${{github.action_path}}
           ls
-      

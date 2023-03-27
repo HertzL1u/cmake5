@@ -21,8 +21,8 @@ jobs :
         run: |
           mkdir build
           cd build
-          cmake .. ${matrix.config.command} "${matrix.config.compiler}"
-          ${matrix.config.makecommand}
+          cmake .. ${{matrix.config.command}} "${{matrix.config.compiler}}"
+          ${{matrix.config.makecommand}}
           ls
         shell: pwsh
       - name: MINGW

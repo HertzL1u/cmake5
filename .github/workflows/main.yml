@@ -14,7 +14,7 @@ jobs :
         config:
         - {name: "MINGW", os: "windows-latest", command: "-G ", compiler: "MinGW Makefiles", makecommand: "make"}
         - {name: "MSVC", os: "windows-latest", command: "-G", compiler: "Visual Studio 17 2022", makecommand: "cmake --build ."}
-        - {name: "LINUX", os: "ubuntu-latest", command: "", compiler: "", makecommand: "make"}
+        - {name: "", os: "ubuntu-latest", command: "", compiler: "", makecommand: "make"}
     steps:
       - uses: actions/checkout@v2
       - name: CMAKE & PRINT
@@ -32,4 +32,4 @@ jobs :
         if: startsWith(matrix.config.name, 'MSVC')
         shell: pwsh
       - name: LINUX
-        if: startsWith(matrix.config.name, 'LINUX')
+        if: startsWith(matrix.config.name, '')

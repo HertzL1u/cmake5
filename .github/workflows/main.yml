@@ -12,29 +12,27 @@ jobs :
     strategy: 
       matrix:
         config:
-        - {name: "MINGW", os: "windows-latest", command: -G, generator: MinGW Makefiles, build: make}
-        - {name: "MSVC", os: "windows-latest", command: -G, generator: Visual Studio 17 2022, build: cmake --build .}
-        - {name: "LINUX", os: "ubuntu-latest", command: "", generator: "", build: make}
+        - {name: "MINGW", os: "windows-latest", command: "-G", compiler: "MinGW Makefiles", makecommand: "make"}
+        - {name: "MSVC", os: "windows-latest", command: "-G", compiler: "Visual Studio 17 2022", makecommand: "cmake --build ."}
+        - {name: "LINUX", os: "ubuntu-latest", command: "", compiler: "", makecommand: "make"}
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: CMAKE & PRINT
         run: |
-          mkdir build
-          cd build
-          cmake .. ${matrix.command} "${matrix.generator}"
-          ${matrix.build}
+          mkdir -p ${{github.workspace}}/build
+          cd ${{github.workspace}}/build
+          cmake .. ${matrix.command} "${matrix.compiler}"
+          ${matrix.makecommand}
           ls
       - name: MINGW
         if: startsWith(matrix.config.name, 'MINGW')
         run: |
-          ${{github.action_path}}
-        shell: pwsh
+          sh ${{github.workspace}}/build/mingw.sh
       - name: MSVC
         if: startsWith(matrix.config.name, 'MSVC')
         run: |
-          ${{github.action_path}}
-        shell: pwsh
+          cmd.exe /C ${{github.workspace}}/build/msvc.bat
       - name: LINUX
         if: startsWith(matrix.config.name, 'LINUX')
         run: |
-          ${{github.action_path}}
+          sh ${{github.workspace}}/build/linux.sh

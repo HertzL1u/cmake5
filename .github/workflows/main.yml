@@ -12,9 +12,9 @@ jobs :
     strategy: 
       matrix:
         config:
-        - {name: "MINGW", os: "windows-latest", command: "-G", generator: "MinGW Makefiles", build: "make"}
-        - {name: "MSVC", os: "windows-latest", command: "-G", generator: "Visual Studio 17 2022", build: "cmake --build ."}
-        - {name: "LINUX", os: "ubuntu-latest", command: "", generator: "", build: "make"}
+        - {name: "MINGW", os: "windows-latest", command: -G, generator: MinGW Makefiles, build: make}
+        - {name: "MSVC", os: "windows-latest", command: -G, generator: Visual Studio 17 2022, build: cmake --build .}
+        - {name: "LINUX", os: "ubuntu-latest", command: "", generator: "", build: make}
     steps:
       - uses: actions/checkout@v1
       - name: CMAKE & PRINT

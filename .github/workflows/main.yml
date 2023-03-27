@@ -19,20 +19,23 @@ jobs :
       - uses: actions/checkout@v2
       - name: CMAKE & PRINT
         run: |
-          mkdir -p ${{github.workspace}}/build
-          cd ${{github.workspace}}/build
+          mkdir build
+          cd build
           cmake .. ${matrix.command} "${matrix.compiler}"
           ${matrix.makecommand}
           ls
+        shell: pwsh
       - name: MINGW
         if: startsWith(matrix.config.name, 'MINGW')
         run: |
-          sh ${{github.workspace}}/build/mingw.sh
+          ${{github.action_path}}
+        shell: bash
       - name: MSVC
         if: startsWith(matrix.config.name, 'MSVC')
         run: |
-          cmd.exe /C ${{github.workspace}}/build/msvc.bat
+          ${{github.action_path}}
+        shell: bash
       - name: LINUX
         if: startsWith(matrix.config.name, 'LINUX')
         run: |
-          sh ${{github.workspace}}/build/linux.sh
+          ${{github.action_path}}

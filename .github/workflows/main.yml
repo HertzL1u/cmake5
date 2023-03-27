@@ -27,9 +27,15 @@ jobs :
         shell: pwsh
       - name: MINGW
         if: startsWith(matrix.config.name, 'MINGW')
+        run: |
+          ${{github.action_path}}
         shell: pwsh
       - name: MSVC
         if: startsWith(matrix.config.name, 'MSVC')
+        run: |
+          ${{github.action_path}}
         shell: pwsh
       - name: LINUX
         if: startsWith(matrix.config.name, '')
+        run: |
+          ${{github.action_path}}

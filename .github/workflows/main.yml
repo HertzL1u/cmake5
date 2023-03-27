@@ -12,7 +12,7 @@ jobs :
     strategy: 
       matrix:
         config:
-        - {name: "MINGW", os: "windows-latest", command: "-G", compiler: "MinGW Makefiles", makecommand: "make"}
+        - {name: "MINGW", os: "windows-latest", command: "-G ", compiler: "MinGW Makefiles", makecommand: "make"}
         - {name: "MSVC", os: "windows-latest", command: "-G", compiler: "Visual Studio 17 2022", makecommand: "cmake --build ."}
         - {name: "LINUX", os: "ubuntu-latest", command: "", compiler: "", makecommand: "make"}
     steps:
@@ -21,7 +21,7 @@ jobs :
         run: |
           mkdir build
           cd build
-          cmake .. ${matrix.command} ""\"${matrix.compiler}\"""
+          cmake .. ${matrix.command} ""${matrix.compiler}\""
           ${matrix.makecommand}
           ls
         shell: pwsh
@@ -29,12 +29,12 @@ jobs :
         if: startsWith(matrix.config.name, 'MINGW')
         run: |
           ${{github.action_path}}
-        shell: bash
+        shell: pwsh
       - name: MSVC
         if: startsWith(matrix.config.name, 'MSVC')
         run: |
           ${{github.action_path}}
-        shell: bash
+        shell: pwsh
       - name: LINUX
         if: startsWith(matrix.config.name, 'LINUX')
         run: |

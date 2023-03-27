@@ -21,7 +21,7 @@ jobs :
         run: |
           mkdir build
           cd build
-          cmake .. ${matrix.command} "${matrix.compiler}"
+          cmake .. ${matrix.command} "\"${matrix.compiler}\""
           ${matrix.makecommand}
           ls
         shell: pwsh

@@ -19,9 +19,6 @@ jobs :
       - uses: actions/checkout@v2
       - name: CMAKE & PRINT
         run: |
-          mkdir build
-          cd build
-          cmake .. ${{matrix.config.command}} "${{matrix.config.compiler}}"
-          ${{matrix.config.makecommand}}
+          cmake ${{matrix.config.command}} "${{matrix.config.compiler}}" -S . -B ./build && cd ./build && ${{matrix.config.makecommand}}
           ls
         shell: pwsh

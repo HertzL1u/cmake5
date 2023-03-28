@@ -19,6 +19,7 @@ jobs :
       - uses: actions/checkout@v2
       - name: CMAKE & PRINT
         run: |
-          cmake ${{matrix.config.command}} "${{matrix.config.compiler}}" -S . -B ./build && cd ./build && ${{matrix.config.makecommand}}
+          cmake -version
+          cmake ${{matrix.config.command}} "${{matrix.config.compiler}}" -S . -B ./build -DCMAKE_VERSION='>=3.21.4' && cd ./build && ${{matrix.config.makecommand}}
           ls
         shell: pwsh

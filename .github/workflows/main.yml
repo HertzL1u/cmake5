@@ -12,14 +12,14 @@ jobs :
     strategy: 
       matrix:
         config:
-        - {name: "MINGW", os: "windows-latest", command: "-G ", compiler: "MinGW Makefiles", makecommand: "make"}
-        - {name: "MSVC", os: "windows-latest", command: "-G", compiler: "Visual Studio 17 2022", makecommand: "cmake --build ."}
+        - {name: "MINGW", os: "windows-latest", command: "-G", compiler: "MinGW Makefiles", makecommand: "make"}
+        - {name: "MSVC", os: "windows-latest", command: "-G", compiler: "Visual Stuido 17 2022", makecommand: "cmake --build"}
         - {name: "LINUX", os: "ubuntu-latest", command: "", compiler: "", makecommand: "make"}
     steps:
       - uses: actions/checkout@v2
       - name: CMAKE & PRINT
         run: |
           cmake -version
-          cmake ${{matrix.config.command}} "${{matrix.config.compiler}}" -S . -B ./build -DCMAKE_VERSION='>=3.21.4' && cd ./build && ${{matrix.config.makecommand}}
+          cmake ${{matrix.config.command}} "${{matrix.config.compiler}}" -S . -B ./build && cd ./build && ${{matrix.config.makecommand}}
           ls
         shell: pwsh

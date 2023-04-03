@@ -7,18 +7,14 @@ on:
   workflow_dispatch:
 jobs :
   build:
-    name: ${{ matrix.config.name }}
-    runs-on: ${{ matrix.config.os }}
-    strategy: 
-      matrix:
-        config:
-        - {name: "MINGW", os: "windows-latest", command: "-G", compiler: "MinGW Makefiles"}
-        - {name: "MSVC", os: "windows-latest", command: "-G", compiler: "Visual Studio 17 2022"}
-        - {name: "LINUX", os: "ubuntu-latest", command: "", compiler: ""}
+    name: MYJOB
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
       - name: CMAKE & PRINT
         run: |
-          cmake ${{matrix.config.command}} "${{matrix.config.compiler}}" -S . -B ./build 2>&1 | tee -a error.log && cmake --build ./build 2>&1 | tee -a build.log
-          ls
+          git clone https://github.com/HertzL1u/cmake5.git
+          git add my_folder
+          git commit -m "Add my_folder"
+          git push
         shell: pwsh

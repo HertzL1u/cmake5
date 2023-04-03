@@ -14,6 +14,8 @@ jobs :
       - name: CMAKE & PRINT
         run: |
           git clone https://github.com/HertzL1u/cmake5.git
+          git config --global user.email "Z18873045628@163.com"
+          git config --global user.name "HertzL1u"
           git add my_folder
           git commit -m "Add my_folder"
           git push

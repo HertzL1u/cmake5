@@ -19,7 +19,6 @@ jobs :
       - uses: actions/checkout@v2
       - name: CMAKE & PRINT
         run: |
-          cmake -version
-          cmake ${{matrix.config.command}} "${{matrix.config.compiler}}" -S . -B ./build && cmake --build ./build 2>&1 | tee build.log
+          cmake ${{matrix.config.command}} "${{matrix.config.compiler}}" -S . -B ./build 2>&1 | tee -a error.log && cmake --build ./build 2>&1 | tee -a build.log
           ls
         shell: pwsh

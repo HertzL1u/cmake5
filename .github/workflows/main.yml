@@ -1,22 +1,35 @@
-name: Cmake-dll
+name: Generate and Push File
+
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-  workflow_dispatch:
-jobs :
-  build:
-    name: MYJOB
-    runs-on: windows-latest
+    branches:
+      - main
+
+jobs:
+  generate-and-push:
+    runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - name: CMAKE & PRINT
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Generate File
         run: |
-          git clone https://github.com/HertzL1u/cmake5.git
-          git config --global user.email "Z18873045628@163.com"
-          git config --global user.name "HertzL1u"
-          git add my_folder
-          git commit -m "Add my_folder"
-          git push
-        shell: pwsh
+          echo "| module | compiler | old version | new version | cmake result | build.log |" > result.md
+          echo "| module | compiler | old version | new version | cmake result | build.log |" >> result.md
+          echo "| module | compiler | old version | new version | cmake result | build.log |" >> result.md
+
+      - name: Commit and Push
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+          force: true
+
+
+
+
+
+
+
+

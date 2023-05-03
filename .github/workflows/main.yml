@@ -19,7 +19,14 @@ jobs:
           echo "| module | compiler | old version | new version | cmake result | build.log |" >> result.md
           echo "| module | compiler | old version | new version | cmake result | build.log |" >> result.md
 
-      - name: Commit and Push
+      - name: Commit Changes
+        run: |
+          git config --global user.name "HertzL1u"
+          git config --global user.email "Z18873045628@163.com"
+          git add result.md
+          git commit -m "Generated file"
+      
+      - name: Push Changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

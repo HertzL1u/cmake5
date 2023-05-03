@@ -29,11 +29,10 @@ jobs:
           git commit -m "Generated file"
 
       - name: Push Changes
-        uses: ad-m/github-push-action@v0.5.0
-        with:
-          token: ${{ env.PAT_TOKEN }}
-          branch: ${{ github.ref }}
-          force: true
+        env:
+          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+        run: |
+          git push origin HEAD:${{ github.ref }}
 
 
 
